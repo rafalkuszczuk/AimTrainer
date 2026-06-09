@@ -1,9 +1,10 @@
-#include <iostream>
+#include "GameEngine.h"
 
 using namespace std;
 
-int main()
-{
-    cout << "AimTrainerPro - Inicjalizacja silnika i repozytorium" << std::endl;
+int main() {
+    GameEngine engine;
+    engine.run();
+
     return 0;
 }
