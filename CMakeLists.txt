@@ -17,6 +17,7 @@ add_executable(AimTrainer
     GameEngine.h GameEngine.cpp
     ConfigManager.h ConfigManager.cpp
     StatsManager.h StatsManager.cpp
+    InputManager.h InputManager.cpp	
 )
 
 # Podłączenie znalezionych modułów SFML do naszego programu
