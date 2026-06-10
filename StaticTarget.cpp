@@ -27,3 +27,7 @@ void StaticTarget::update(float deltaTime) {
 void StaticTarget::draw(sf::RenderWindow& window) {
     window.draw(shape);
 }
+void StaticTarget::setColor(sf::Color color) {
+    shape.setFillColor(color);
+}
+
