@@ -26,10 +26,26 @@ float StatsManager::getAverageReactionTime() const {
     return accumulate(reactionTimes.begin(), reactionTimes.end(), 0.0f) / reactionTimes.size();
 }
 
-void StatsManager::saveReport(const string& filename) const {
+void StatsManager::saveReport(const string& filename, const string& playerName, int mode) const {
+    // ios::app sprawia, że nowe wyniki DOPISUJĄ SIĘ na końcu pliku, a nie nadpisują go!
     ofstream file(filename, ios::app);
     if (file.is_open()) {
-        file << "Zapisano wyniki sesji." << endl; // Tutaj Sebastian może rozbudować logikę zapisu do pliku
+        file << "[" << playerName << "] | Tryb: ";
+
+        if (mode == 3) {
+            float totalTime = totalTrackingTime + timeOffTarget;
+            float trackingAccuracy = (totalTime > 0) ? (totalTrackingTime / totalTime) * 100.0f : 0.0f;
+            file << "Tracking | Celów: " << hits
+                 << " | Skuteczność śledzenia: " << trackingAccuracy << "%" << endl;
+        } else if (mode == 2) {
+            file << "Survival | Trafienia: " << hits
+                 << " | Śr. reakcja: " << getAverageReactionTime() << "s"
+                 << " | Powód końca: " << (deathReason.empty() ? "Wyjście" : deathReason) << endl;
+        } else {
+            file << "Reflex   | Trafienia: " << hits << " | Pudła: " << misses
+                 << " | Celność: " << getAccuracy() << "%"
+                 << " | Śr. reakcja: " << getAverageReactionTime() << "s" << endl;
+        }
         file.close();
     }
 }
