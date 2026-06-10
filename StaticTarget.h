@@ -12,4 +12,6 @@ public:
 
     void update(float deltaTime) override;
     void draw(sf::RenderWindow& window) override;
+    void setColor(sf::Color color) override;
+
 };

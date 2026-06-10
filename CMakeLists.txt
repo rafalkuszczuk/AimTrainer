@@ -17,7 +17,10 @@ add_executable(AimTrainer
     GameEngine.h GameEngine.cpp
     ConfigManager.h ConfigManager.cpp
     StatsManager.h StatsManager.cpp
+    InputManager.h InputManager.cpp
 )
 
 # Podłączenie znalezionych modułów SFML do naszego programu
 target_link_libraries(AimTrainer PRIVATE sfml-graphics sfml-window sfml-system)
+# Automatyczne kopiowanie czcionki do folderu kompilacji
+configure_file(assets/arial.ttf ${CMAKE_BINARY_DIR}/arial.ttf COPYONLY)

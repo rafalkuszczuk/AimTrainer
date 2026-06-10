@@ -2,8 +2,8 @@
 
 using namespace std;
 
-MovingTarget::MovingTarget(float startX, float startY, float r, float vX, float vY)
-    : Target(startX, startY, r) {
+MovingTarget::MovingTarget(float startX, float startY, float r, float vX, float vY, float screenW, float screenH)
+    : Target(startX, startY, r), maxX(screenW), maxY(screenH) {
 
     velocityX = vX;
     velocityY = vY;
@@ -14,13 +14,33 @@ MovingTarget::MovingTarget(float startX, float startY, float r, float vX, float 
     shape.setFillColor(sf::Color::Red);
 }
 
+void MovingTarget::setColor(sf::Color color) {
+    shape.setFillColor(color);
+}
+
 void MovingTarget::update(float deltaTime) {
-    // Ruch tarczy z Twojej fizyki
     x += velocityX * deltaTime;
     y += velocityY * deltaTime;
+
+    // FIZYKA: Odbijanie od krawędzi okna!
+    if (x - radius <= 0) {
+        x = radius;
+        velocityX = -velocityX; // Odwrócenie wektora X
+    } else if (x + radius >= maxX) {
+        x = maxX - radius;
+        velocityX = -velocityX;
+    }
+
+    if (y - radius <= 0) {
+        y = radius;
+        velocityY = -velocityY; // Odwrócenie wektora Y
+    } else if (y + radius >= maxY) {
+        y = maxY - radius;
+        velocityY = -velocityY;
+    }
+
     shape.setPosition(x, y);
 
-    // Animacja niszczenia
     if (shrinking) {
         radius -= 250.0f * deltaTime;
         if (radius <= 0) {

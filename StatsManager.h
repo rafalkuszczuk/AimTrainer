@@ -1,23 +1,33 @@
 #pragma once
-#include <string>
 #include <vector>
-
-using namespace std;
+#include <string>
 
 class StatsManager {
 private:
-    int hits;
-    int misses;
-    vector<float> reactionTimes;
+    int hits = 0;
+    int misses = 0;
+    std::vector<float> reactionTimes;
+
+    float totalTrackingTime = 0.0f;
+    float timeOffTarget = 0.0f;
+
+    // Nowa zmienna dla trybu Survival
+    std::string deathReason = "";
 
 public:
-    StatsManager();
-
-    void addHit(float reactionTime);
+    void addHit(float reactionTime = 0.0f);
     void addMiss();
+
+    void addTrackingTime(float dt) { totalTrackingTime += dt; }
+    void addOffTargetTime(float dt) { timeOffTarget += dt; }
+
+    // Metody do obsługi przyczyny końca gry
+    void setDeathReason(const std::string& reason) { deathReason = reason; }
+    std::string getDeathReason() const { return deathReason; }
 
     float getAccuracy() const;
     float getAverageReactionTime() const;
 
-    bool saveReport(const string& filename) const;
+    void saveReport(const std::string& filename) const;
+    void printReportConsole(int mode) const;
 };
