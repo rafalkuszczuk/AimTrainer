@@ -1,15 +1,21 @@
 #include "GameEngine.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 int main() {
     int selectedMode = 1;
+    string playerName;
+
+    cout << "Podaj swoj Nick: ";
+    cin >> playerName;
 
     while (true) {
         cout << "\n=== AIM TRAINER PRO ===" << endl;
+        cout << "Witaj, " << playerName << "!" << endl;
         cout << "1. Tryb Reflex (Statyczne tarcze)" << endl;
-        cout << "2. Tryb Survival (Serduszka, ZIELONE pulapki - nie strzelaj!)" << endl;
+        cout << "2. Tryb Survival (Serduszka, pulapki)" << endl;
         cout << "3. Tryb Tracking (Sledzenie 1 tarczy, odbijanie od scian)" << endl;
         cout << "0. Wyjscie z gry" << endl;
         cout << "Wybierz tryb (0-3): ";
@@ -26,22 +32,25 @@ int main() {
 
         float trackingReq = 0.0f;
         if (selectedMode == 3) {
-            cout << "Podaj czas utrzymania celownika do zniszczenia tarczy (w sekundach, np. 1.5): ";
+            cout << "Podaj czas utrzymania celownika do zniszczenia tarczy (np. 1.5): ";
             cin >> trackingReq;
         }
 
-        // Nowe menu wyboru wielkości tarcz
         int targetSizeOpt = 4;
-        cout << "Wybierz rozmiar tarcz:" << endl;
-        cout << "1. Male (Hardcore)" << endl;
-        cout << "2. Srednie (Standard)" << endl;
-        cout << "3. Duze (Rozgrzewka)" << endl;
-        cout << "4. Losowe (Mieszane)" << endl;
-        cout << "Wybierz opcje (1-4): ";
+        cout << "Wybierz rozmiar tarcz (1-Male, 2-Srednie, 3-Duze, 4-Losowe): ";
         cin >> targetSizeOpt;
 
-        // Przekazujemy nową zmienną do silnika
-        GameEngine engine(selectedMode, trackingReq, timeLimit, targetSizeOpt);
+        // NOWOŚĆ: Pytanie o DDA (tylko jeśli to nie jest tryb Tracking)
+        bool enableDDA = false;
+        if (selectedMode != 3) {
+            int ddaChoice;
+            cout << "Czy wlaczyc system dynamicznej trudnosci DDA? (1 - Tak, 0 - Nie): ";
+            cin >> ddaChoice;
+            enableDDA = (ddaChoice == 1);
+        }
+
+        // Przekazujemy nową zmienną enableDDA na samym końcu
+        GameEngine engine(playerName, selectedMode, trackingReq, timeLimit, targetSizeOpt, enableDDA);
         engine.run();
     }
 

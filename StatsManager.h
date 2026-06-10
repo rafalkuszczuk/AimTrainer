@@ -28,6 +28,6 @@ public:
     float getAccuracy() const;
     float getAverageReactionTime() const;
 
-    void saveReport(const std::string& filename) const;
+    void saveReport(const std::string& filename, const std::string& playerName, int mode) const;
     void printReportConsole(int mode) const;
 };
