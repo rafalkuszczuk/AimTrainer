@@ -4,13 +4,14 @@
 
 using namespace std;
 
+// Dziedziczy po 'Target', ale dorzuca do równania PRĘDKOŚĆ i odbijanie od ścian.
 class MovingTarget : public Target {
 private:
-    float velocityX;
-    float velocityY;
-    float maxX; // Granica X ekranu
-    float maxY; // Granica Y ekranu
-    sf::CircleShape shape;
+    float velocityX; // Prędkość po osi X (ruch w lewo/prawo)
+    float velocityY; // Prędkość po osi Y (ruch w górę/dół)
+    float maxX;      // Granica ekranu w prawo (szerokość okna)
+    float maxY;      // Granica ekranu w dół (wysokość okna)
+    sf::CircleShape shape; // Fizyczny kształt koła od SFML
 
 public:
     MovingTarget(float startX, float startY, float r, float vX, float vY, float screenW, float screenH);
