@@ -17,7 +17,6 @@ StaticTarget::StaticTarget(float startX, float startY, float r) : Target(startX,
 void StaticTarget::update(float deltaTime) {
     // Odpala się, jeśli cel dostał hita z pistoletu
     if (shrinking) {
-        // Tłumaczenie dla małpki:
         // Zmniejszamy promień o 250 pikseli w każdej sekundzie.
         // Mnożymy to przez "deltaTime" (czas od wyrysowania ostatniej klatki obrazu).
         // Dzięki temu nieważne czy masz 30, 60 czy 300 FPS - tarcza kurczy się w takim samym tempie.
