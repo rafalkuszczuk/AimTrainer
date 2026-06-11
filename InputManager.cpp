@@ -21,7 +21,7 @@ void InputManager::update(sf::RenderWindow& window) {
     sf::Vector2i center(windowSize.x / 2, windowSize.y / 2);
 
     // Obliczamy deltę (różnicę) przesunięcia od środka okna.
-    // Tłumaczenie dla małpki: Sprawdzamy "jak bardzo wychyliliśmy myszkę w stosunku do punktu centralnego?".
+    // Sprawdzamy "jak bardzo wychyliliśmy myszkę w stosunku do punktu centralnego?".
     float deltaX = static_cast<float>(mousePos.x - center.x);
     float deltaY = static_cast<float>(mousePos.y - center.y);
 
@@ -37,7 +37,6 @@ void InputManager::update(sf::RenderWindow& window) {
     if (virtualY < 0) virtualY = 0;
     if (virtualY > windowSize.y) virtualY = windowSize.y;
 
-    // Tłumaczenie dla małpki (IMITACJA RAW INPUT):
     // Tu dzieje się magia strzelanek. Żeby kursora nam nie zabrakło (np. uderzając w skraj monitora),
     // po przesunięciu celownika WIRTUALNEGO, bierzemy fizyczny kursor myszy i teleportujemy
     // go brutalnie z powrotem na sam środek okna.
@@ -52,7 +51,6 @@ bool InputManager::checkCollision(float targetX, float targetY, float targetRadi
     float dx = virtualX - targetX;
     float dy = virtualY - targetY;
 
-    // Tłumaczenie dla małpki (Matematyka bez bólu):
     // Optymalizacja: normalnie do liczenia dystansu między dwoma kropkami używa się
     // trudnego pierwiastka (sqrt). Pierwiastkowanie bardzo męczy procesor komputera.
     // Zamiast tego z Twierdzenia Pitagorasa (a^2 + b^2 = c^2) sprawdzamy sam kwadrat odległości.
