@@ -1,3 +1,8 @@
+/**
+ * @file [Nazwa_Pliku]
+ * @author Rafał Kuszczuk
+ * @brief Zaawansowana interakcja, implementacja "raw input", matematyka detekcji kolizji oraz wektory ruchu.
+ */
 #pragma once
 #include "Target.h"
 

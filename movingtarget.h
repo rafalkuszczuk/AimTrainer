@@ -1,3 +1,8 @@
+/**
+ * @file MovingTarget.h
+ * @author Rafał Kuszczuk
+ * @brief Zaawansowana interakcja, "raw input", matematyka detekcji kolizji (hitboxy) i wektory ruchu.
+ */
 #pragma once
 #include "Target.h"
 #include <SFML/Graphics.hpp>

@@ -1,42 +1,45 @@
+/**
+ * @file StaticTarget.cpp
+ * @author Rafał Kuszczuk
+ * @brief Zaawansowana interakcja, implementacja "raw input", matematyka detekcji kolizji oraz wektory ruchu.
+ */
 #include "StaticTarget.h"
 
 using namespace std;
 
-// Konstruktor - przypisujemy pozycję i wielkość startową z szablonu bazowego (Target)
 StaticTarget::StaticTarget(float startX, float startY, float r) : Target(startX, startY, r) {
     shape.setRadius(radius);
 
-    // Ustawiamy punkt "chwytu" koła w samym jego środku, a nie w lewym-górnym rogu.
-    // To kluczowe, żeby koło kurczyło się do środka, a nie przesuwało się w lewo-górę!
+    // ustawiamy srodek chwytu w centrum kółka, zeby sie kurczylo do srodka a nie do rogu
     shape.setOrigin(radius, radius);
     shape.setPosition(x, y);
 
-    shape.setFillColor(sf::Color::Blue); // Statyczny cel na start będzie miał kolor niebieski
+    // zwykła tarcza jest na start niebieska
+    shape.setFillColor(sf::Color::Blue);
 }
 
 void StaticTarget::update(float deltaTime) {
-    // Odpala się, jeśli cel dostał hita z pistoletu
+    // jak ktos w to trafil, to zaczynamy kurczenie
     if (shrinking) {
-        // Zmniejszamy promień o 250 pikseli w każdej sekundzie.
-        // Mnożymy to przez "deltaTime" (czas od wyrysowania ostatniej klatki obrazu).
-        // Dzięki temu nieważne czy masz 30, 60 czy 300 FPS - tarcza kurczy się w takim samym tempie.
+        // zmniejszamy promien, mnozymy przez czas zeby na kazdym kompie dzialalo tak samo
         radius -= 250.0f * deltaTime;
 
-        // Jeśli promień spadł do zera (albo niżej)...
+        // jak zniknie calkiem to oznaczamy jako martwe
         if (radius <= 0) {
             radius = 0;
-            dead = true; // Koniec animacji, tarcza "umarła", można ją usunąć z wektora obiektów.
+            dead = true;
         } else {
+            // aktualizujemy wyglad
             shape.setRadius(radius);
-            shape.setOrigin(radius, radius); // Zmiana origin by tarcza cały czas kurczyła się idealnie do środka
+            shape.setOrigin(radius, radius);
         }
     }
 }
 
 void StaticTarget::draw(sf::RenderWindow& window) {
-    window.draw(shape); // Po prostu maluje nam koło w odpowiednim miejscu
+    window.draw(shape); // rysuje kółko na ekranie
 }
 
 void StaticTarget::setColor(sf::Color color) {
-    shape.setFillColor(color); // Pozwala ręcznie zmienić kolor tarczy (np. z niebieskiego na fioletowy)
+    shape.setFillColor(color); // zmienia kolor jak trzeba
 }

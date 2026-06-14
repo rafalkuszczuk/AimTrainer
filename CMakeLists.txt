@@ -22,6 +22,7 @@ add_executable(AimTrainer
     GameEngine.h GameEngine.cpp
     StatsManager.h StatsManager.cpp
     InputManager.h InputManager.cpp
+    UIManager.h UIManager.cpp
 )
 
 # Podłączenie znalezionych modułów SFML do naszego programu (żeby okienko i dźwięki w ogóle działały)
@@ -37,6 +38,7 @@ set(ASSET_FILES
     najman.png
     najman.wav
     dead.wav
+    crosshair.png
 )
 
 # Pętla: Dla każdego pliku z listy sprawdzamy, czy fizycznie istnieje na dysku.

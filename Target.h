@@ -1,51 +1,53 @@
+/**
+ * @file Target.h
+ * @author Filip Krzyżkowiak
+ * @brief Architektura silnika, inicjalizacja okna, główna pętla gry, zarządzanie pamięcią oraz polimorfizm obiektów.
+ */
 #pragma once
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
-// Główna klasa 'Target'. To klasa "abstrakcyjna" (taki szablon ogólny).
-// Nie możemy w grze stworzyć po prostu "Targetu" - musimy zdefiniować, czy to Static, czy Moving Target.
+// to jest glowny szablon dla wszystkich tarcz
 class Target {
 protected:
-    // Słowo "protected" oznacza, że te zmienne są ukryte przed światem zewnętrznym,
-    // ale klasy-dzieci (np. StaticTarget) mogą z nich swobodnie korzystać.
-    float x, y, radius;     // Pozycja (x, y) i wielkość (promień) tarczy.
-    bool shrinking = false; // Czy tarcza została trafiona i się kurczy?
-    bool dead = false;      // Czy tarcza skurczyła się do końca i można ją usunąć?
+    // pozycja i wielkosc naszego kółka
+    float x, y, radius;
+    // czy wlasnie dostalo hita i znika
+    bool shrinking = false;
+    // czy juz zniknelo calkiem
+    bool dead = false;
 
-    // Nowe zmienne dla trybu Survival
-    float timeAlive = 0.0f;       // Ile czasu tarcza "żyje" na ekranie bez trafienia?
-    bool isPenaltyTarget = false; // Czy to jest "zła" tarcza, w którą nie wolno strzelać?
+    // do trybu survival
+    float timeAlive = 0.0f;       // ile sekund juz sobie zyje
+    bool isPenaltyTarget = false; // czy to ta zielona tarcza (sojusznik)
 
 public:
-    // Konstruktor - podczas tworzenia tarczy od razu ustalamy jej miejsce i wielkość.
+    // tworzymy tarcze na podanych kordach
     Target(float startX, float startY, float r) : x(startX), y(startY), radius(r) {}
 
-    // Wirtualny destruktor - wymagany, aby poprawnie kasować obiekty potomne z pamięci.
     virtual ~Target() = default;
 
-    // Czysto wirtualne funkcje (to "= 0" na końcu).
-    // Oznaczają one: "Ja jestem tylko szablonem! Każda klasa-dziecko musi sama napisać,
-    // jak się aktualizuje (update), jak rysuje (draw) i zmienia kolor!".
+    // to musza miec wszystkie tarcze zeby dzialac
     virtual void update(float deltaTime) = 0;
     virtual void draw(sf::RenderWindow& window) = 0;
-    virtual void setColor(sf::Color color) = 0; // Czysto wirtualna zmiana koloru
+    virtual void setColor(sf::Color color) = 0;
 
-    // Standardowe Gettery (wyciągacze informacji)
+    // wyciaganie danych
     float getX() const { return x; }
     float getY() const { return y; }
     float getRadius() const { return radius; }
 
-    // Wywołanie tej funkcji odpala proces zapadania/zmniejszania tarczy.
+    // odpala animacje kurczenia po trafieniu
     void startShrinking() { shrinking = true; }
 
-    // Sprawdza, czy tarcza jest już gotowa na cmentarz.
+    // sprawdza czy juz mozna usunac tarcze z gry
     bool isDead() const { return dead; }
 
-    // Gettery i Settery dla nowej logiki
-    void addTimeAlive(float dt) { timeAlive += dt; } // Dodajemy czas, jaki upłynął (deltaTime)
+    // obsluga czasu i kar w survivalu
+    void addTimeAlive(float dt) { timeAlive += dt; }
     float getTimeAlive() const { return timeAlive; }
 
-    void setPenalty(bool penalty) { isPenaltyTarget = penalty; } // Zmiana na tarczę-karę
-    bool isPenalty() const { return isPenaltyTarget; }           // Czy to tarcza-kara?
+    void setPenalty(bool penalty) { isPenaltyTarget = penalty; }
+    bool isPenalty() const { return isPenaltyTarget; }
 };
