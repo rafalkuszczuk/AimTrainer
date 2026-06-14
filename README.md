@@ -1,13 +1,13 @@
 # Aim Trainer - zaawansowany symulator celności (C++ & SFML)
 
-Projekt zaliczeniowy z przedmiotu Programowanie Strukturalne i Obiektowe. Gra testuje i poprawia czas reakcji, precyzję oraz zdolność śledzenia celów przez gracza, oferując 4 unikalne tryby rozgrywki oraz system Dynamicznego Dostosowywania Poziomu Trudności (DDA).
+Projekt zaliczeniowy z przedmiotu Programowanie Strukturalne i Obiektowe. Podczas planowania architektury celowo zrezygnowaliśmy z tworzenia standardowych gier zręcznościowych (typu Space Shooter czy Tower Defense). Zauważyliśmy, że w tego typu projektach praca studenta często rozmywa się na poboczne aspekty, takie jak tworzenie animacji czy projektowanie map. Zamiast tego postawiliśmy na stworzenie zaawansowanego narzędzia e-sportowego, w którym na pierwszym miejscu stoi inżynieria, optymalizacja i precyzja.
+Gra testuje i poprawia czas reakcji, precyzję oraz zdolność śledzenia celów przez gracza, oferując 4 unikalne tryby rozgrywki oraz system Dynamicznego Dostosowywania Poziomu Trudności (DDA).
 
 ##  Zespół i Podział Obowiązków
 
-
 **Rafał Kuszczuk** pełnił rolę głównego integratora repozytorium. Odpowiadał za łączenie modułów pisanych przez cały zespół, pilnowanie działania CMake i wypychanie zintegrowanych wersji na serwer (stąd jego przeważająca obecność w historii commitów). 
 
-Właściwa praca inżynierska i pisanie kodu zostały podzielone na równe domeny:
+Właściwa praca i pisanie kodu zostały podzielone na równe domeny:
 * **Filip Krzyżkowiak:** Architektura silnika (`GameEngine`), inicjalizacja okna, główna pętla gry, zarządzanie pamięcią (wektor wskaźników) oraz polimorficzna logika fabryki celów. Stworzone pliki: main.cpp, GameEngine.h, GameEngine.cpp, Target.h
 * **Rafał Kuszczuk (Integrator):** Zaawansowana interakcja, fizyka, implementacja "raw input" myszy, matematyka detekcji kolizji (hitboxy) oraz wektory ruchu dla klas `Target`. Stworzone pliki: InputManager.h, InputManager.cpp, MovingTarget.h, MovingTarget.cpp, StaticTarget.h, StaticTarget.cpp
 * **Sebastian Mielcarek:** Logika gry, architektura klas zarządzających (UI/Stats), implementacja algorytmu DDA, zapis analityki do plików oraz wczytywanie zasobów. Stworzone pliki: StatsManager.h, StatsManager.cpp, UIManager.h, UIManager.cpp
@@ -16,7 +16,7 @@ Właściwa praca inżynierska i pisanie kodu zostały podzielone na równe domen
 
 ##  Realizacja wymagań projektowych
 
-Projekt spełnia (a w wielu miejscach przewyższa) wymagania określone w sylabusie przedmiotu:
+Projekt spełnia (a w wielu miejscach przewyższa) wymagania określone w wymaganiach projektu:
 
 - [x] **Podział na pliki .cpp i .h:** Cały projekt został zhermetyzowany. Każda klasa (silnik, menedżery, obiekty gry) posiada osobny plik nagłówkowy oraz plik z definicjami.
 - [x] **Zastosowanie dziedziczenia:** Klasy `StaticTarget` oraz `MovingTarget` dziedziczą po abstrakcyjnej klasie bazowej `Target`.
